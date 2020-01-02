@@ -1,26 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import fetchProducts from "../../api";
+import LoadingProduct from "./Loading";
 
-const Products = ({ products }) => {
-  const classes = "trocar por useStyle() makeStyles";
-  console.warn(products, "products");
+import ProductsItems from "./Products";
+
+const Products = ({ products, isLoading, dispatch }) => {
+  React.useEffect(() => {
+    fetchProducts(dispatch);
+  }, [dispatch]);
 
   return (
-    <Grid>
-      {products &&
-        products.length &&
-        products.map(item => (
-          <Typography key={item.productId}>{item.productName}</Typography>
-        ))}
-    </Grid>
+    <React.Fragment>
+      {<LoadingProduct isLoading={isLoading} />}
+
+      {!isLoading && <ProductsItems products={products} />}
+    </React.Fragment>
   );
 };
 
 const mapStateToProps = state => ({
-  products: state.store.data
+  products: state.store.data,
+  isLoading: state.store.status
 });
 
 export default connect(mapStateToProps)(Products);

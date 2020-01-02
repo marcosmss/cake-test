@@ -6,12 +6,12 @@ import Products from "./components/Products";
 
 import { Provider } from "react-redux";
 import store from "./store";
+import "./App.css";
 
 const App = () => {
   return (
     <Provider store={store}>
       <Header />
-      {/* <div style={{ height: 1500 }}>teste</div> */}
       <Products />
       <Footer />
     </Provider>

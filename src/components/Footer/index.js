@@ -9,18 +9,23 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   root: {
     height: 180,
-    bottom: 20,
-    position: "absolute",
+    bottom: 0,
+    position: "relative",
     backgroundColor: "#ef7560",
     [theme.breakpoints.up("md")]: {
-      height: 100
+      height: 100,
+      bottom: 20,
+      position: "absolute"
     }
   },
   footerDeveloped: {
     height: 20,
     bottom: 0,
-    position: "absolute",
-    backgroundColor: "#eeeeee"
+    position: "relative",
+    backgroundColor: "#eeeeee",
+    [theme.breakpoints.up("md")]: {
+      position: "absolute"
+    }
   },
   titleDeveloped: {
     fontSize: 14,

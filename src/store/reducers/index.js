@@ -1,25 +1,44 @@
 import { combineReducers } from "redux";
-import getData from "../../api/index";
 
 const initialState = {
-  data: getData().then(result => (initialState.data = result)),
+  data: {},
   openMenuProfile: false,
   openShoppingCart: false,
-  status: false
+  status: false,
+  error: null
 };
 
 function store(state = initialState, action) {
-  console.warn(state, "state store");
+  switch (action.type) {
+    case "FETCH_PRODUCTS_PENDING":
+      return {
+        ...state,
+        status: true
+      };
 
-  if (action.type === "HANDLE_MENU_PROFILE") {
-    return { ...state, openMenuProfile: !state.openMenuProfile };
+    case "FETCH_PRODUCTS_SUCCESS":
+      return {
+        ...state,
+        status: false,
+        data: action.data
+      };
+
+    case "FETCH_PRODUCTS_ERROR":
+      return {
+        ...state,
+        status: false,
+        error: action.error
+      };
+
+    case "HANDLE_MENU_PROFILE":
+      return { ...state, openMenuProfile: !state.openMenuProfile };
+
+    case "HANDLE_SHOPPING_CART":
+      return { ...state, openShoppingCart: !state.openShoppingCart };
+
+    default:
+      return state;
   }
-
-  if (action.type === "HANDLE_SHOPPING_CART") {
-    return { ...state, openShoppingCart: !state.openShoppingCart };
-  }
-
-  return state;
 }
 
 export default combineReducers({ store });

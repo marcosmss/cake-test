@@ -11,3 +11,23 @@ export const handleShoppingCard = item => {
     item
   };
 };
+
+export const fetchProductsPending = () => {
+  return {
+    type: "FETCH_PRODUCTS_PENDING"
+  };
+};
+
+export const fetchProductsSuccess = data => {
+  return {
+    type: "FETCH_PRODUCTS_SUCCESS",
+    data
+  };
+};
+
+export const fetchProductsError = error => {
+  return {
+    type: "FETCH_PRODUCTS_ERROR",
+    error: error
+  };
+};

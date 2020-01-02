@@ -1,27 +1,26 @@
-const getData = async () => {
-  const url = "https://desolate-brushlands-20405.herokuapp.com/api/v1/products";
-  const promiseCallBack = (resolve, reject) => {
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
-      .then(resolve)
-      .catch(reject);
-  };
+import {
+  fetchProductsPending,
+  fetchProductsSuccess,
+  fetchProductsError
+} from "../store/actions";
 
-  return new Promise(promiseCallBack);
+const fetchProducts = dispatch => {
+  dispatch(fetchProductsPending());
+  fetch("https://desolate-brushlands-20405.herokuapp.com/api/v1/products")
+    .then(res => res.json())
+    .then(res => {
+      if (res.error) {
+        throw res.error;
+      }
+      setTimeout(() => {
+        dispatch(fetchProductsSuccess(res));
+
+        return res;
+      }, 1500);
+    })
+    .catch(error => {
+      dispatch(fetchProductsError(error));
+    });
 };
 
-export default getData;
-
-// const getData = async () => {
-//   const url = "https://desolate-brushlands-20405.herokuapp.com/api/v1/products";
-//   fetch(url)
-//     .then(response => {
-//       return response.json();
-//     })
-//     .then(data => data)
-//     .catch(error => error);
-// };
-
-// export default getData;
+export default fetchProducts;
