@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
   cardProduct: {
     height: 360,
     margin: "30px 0px",
-    boxShadow: "0px -1px 9px -4px rgba(0,0,0,0.75)"
+    boxShadow: "0px -1px 9px -4px rgba(0,0,0,0.75)",
+    cursor: "pointer"
   },
   imgProducts: {
     height: 250
@@ -80,7 +81,6 @@ const ProductsItems = ({ products }) => {
   const [state, setState] = React.useState({ buy: false, value: null });
 
   const teste = event => {
-    console.warn(event.target);
     setState({ buy: true, value: event.target && event.target.id });
   };
 
@@ -113,7 +113,10 @@ const ProductsItems = ({ products }) => {
               className={[classes.cardProduct, classes.hoverExpand].join(" ")}
               id={item.productId}
               onMouseEnter={event => teste(event)}
-              onMouseLeave={event => setState({ buy: false, value: null })}
+              onMouseLeave={() => setState({ buy: false, value: null })}
+              onClick={() =>
+                (window.location.pathname = `/product/${item.productId}`)
+              }
             >
               <Grid
                 item

@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
 import Drawer from "@material-ui/core/Drawer";
@@ -111,7 +112,9 @@ const HeaderMobile = ({ openMenuProfile, openShoppingCart, dispatch }) => {
       </Grid>
 
       <Grid item xs={6} sm={9}>
-        <img src={Logo} className={classes.image} />
+        <Link to="/">
+          <img src={Logo} className={classes.image} />
+        </Link>
       </Grid>
 
       <Grid item xs={4} sm={2} container justify="space-between">

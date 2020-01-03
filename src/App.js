@@ -1,9 +1,9 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Products from "./components/Products";
+import Home from "./components/Home";
 
+import ProductDetail from "./components/ProductDetail";
 import { Provider } from "react-redux";
 import store from "./store";
 import "./App.css";
@@ -11,9 +11,12 @@ import "./App.css";
 const App = () => {
   return (
     <Provider store={store}>
-      <Header />
-      <Products />
-      <Footer />
+      <Router>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/product/:id" component={ProductDetail} />
+        </Switch>
+      </Router>
     </Provider>
   );
 };

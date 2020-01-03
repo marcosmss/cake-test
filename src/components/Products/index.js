@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import fetchProducts from "../../api";
+import { fetchProducts } from "../../api";
 import LoadingProduct from "./Loading";
 
 import ProductsItems from "./Products";

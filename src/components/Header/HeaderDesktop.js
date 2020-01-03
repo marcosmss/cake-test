@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
+import LinkMaterial from "@material-ui/core/Link";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -45,21 +46,23 @@ const Header = ({ openMenuProfile, openShoppingCart, dispatch }) => {
     <Grid item xs={12} container className={classes.root} justify="center">
       <Grid item xs={10} container justify="center">
         <Grid item xs container justify="space-between" alignItems="center">
-          <img src={Logo} className={classes.image} />
+          <Link to="/">
+            <img src={Logo} className={classes.image} />
+          </Link>
           <Typography>Categoria 01</Typography>
           <Typography>Categoria 02</Typography>
           <Typography>Categoria 03</Typography>
           <Typography>Categoria 04</Typography>
         </Grid>
         <Grid item xs={4} container justify="flex-end" alignItems="center">
-          <Link
+          <LinkMaterial
             component="button"
             className={classes.linkCount}
             onClick={() => dispatch(handleMenuProfile(openMenuProfile))}
           >
             <PersonOutlineOutlinedIcon className={classes.icon} />
             <Typography>Minha conta</Typography>
-          </Link>
+          </LinkMaterial>
 
           {openMenuProfile && <MenuProfile />}
 

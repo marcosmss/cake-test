@@ -31,3 +31,23 @@ export const fetchProductsError = error => {
     error: error
   };
 };
+
+export const fetchDetailPending = () => {
+  return {
+    type: "FETCH_DETAIL_PENDING"
+  };
+};
+
+export const fetchDetailSuccess = productDetail => {
+  return {
+    type: "FETCH_DETAIL_SUCCESS",
+    productDetail
+  };
+};
+
+export const fetchDetailError = error => {
+  return {
+    type: "FETCH_DETAIL_ERROR",
+    error: error
+  };
+};

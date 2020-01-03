@@ -1,10 +1,13 @@
 import {
   fetchProductsPending,
   fetchProductsSuccess,
-  fetchProductsError
+  fetchProductsError,
+  fetchDetailPending,
+  fetchDetailSuccess,
+  fetchDetailError
 } from "../store/actions";
 
-const fetchProducts = dispatch => {
+export const fetchProducts = dispatch => {
   dispatch(fetchProductsPending());
   fetch("https://desolate-brushlands-20405.herokuapp.com/api/v1/products")
     .then(res => res.json())
@@ -16,11 +19,28 @@ const fetchProducts = dispatch => {
         dispatch(fetchProductsSuccess(res));
 
         return res;
-      }, 1500);
+      }, 1000);
     })
     .catch(error => {
       dispatch(fetchProductsError(error));
     });
 };
 
-export default fetchProducts;
+export const fetchProductDetail = (dispatch, pathName) => {
+  dispatch(fetchDetailPending());
+  fetch(`https://desolate-brushlands-20405.herokuapp.com/api/v1${pathName}`)
+    .then(res => res.json())
+    .then(res => {
+      if (res.error) {
+        throw res.error;
+      }
+      setTimeout(() => {
+        dispatch(fetchDetailSuccess(res));
+
+        return res;
+      }, 1000);
+    })
+    .catch(error => {
+      dispatch(fetchDetailError(error));
+    });
+};
