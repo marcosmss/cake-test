@@ -9,7 +9,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { handleShoppingCard } from "../../store/actions";
+import ProductCart from "./ProductCart";
+import { handleShoppingCard, handleCleanCart } from "../../store/actions";
 
 const useStyles = makeStyles({
   root: {
@@ -76,8 +77,21 @@ const useStyles = makeStyles({
   }
 });
 
-const ShoppingCartMobile = ({ openShoppingCart, dispatch }) => {
+const ShoppingCartMobile = ({
+  openShoppingCart,
+  productSelected,
+  dispatch
+}) => {
   const classes = useStyles();
+
+  const arrayValue =
+    productSelected &&
+    productSelected.length &&
+    productSelected.map(item => item.price);
+
+  const totalValue = arrayValue
+    ? arrayValue.reduce((acc, cur) => acc + cur)
+    : 0.0;
 
   return (
     <Grid className={classes.root}>
@@ -100,7 +114,9 @@ const ShoppingCartMobile = ({ openShoppingCart, dispatch }) => {
             <Typography className={classes.titleShoppingCart}>
               Meu Carrinho
             </Typography>
-            <Typography className={classes.countItems}>03 items(s)</Typography>
+            <Typography className={classes.countItems}>
+              {productSelected.length} items(s)
+            </Typography>
             <IconButton
               onClick={() => dispatch(handleShoppingCard(openShoppingCart))}
             >
@@ -109,6 +125,9 @@ const ShoppingCartMobile = ({ openShoppingCart, dispatch }) => {
           </Grid>
         </Grid>
       </Grid>
+      {productSelected && productSelected[0] && (
+        <ProductCart productSelected={productSelected[0]} />
+      )}
       <Grid item xs={12}>
         <Grid
           item
@@ -120,7 +139,7 @@ const ShoppingCartMobile = ({ openShoppingCart, dispatch }) => {
         >
           <Grid item xs={12} container justify="center">
             <Typography className={classes.totalBuy}>
-              Total: R$ 80,19
+              Total: R$ {totalValue.toFixed(2).replace(/\./, ",")}
             </Typography>
           </Grid>
           <Grid item xs={12} container justify="center">
@@ -131,12 +150,9 @@ const ShoppingCartMobile = ({ openShoppingCart, dispatch }) => {
           <Grid item xs={12} container justify="center" alignItems="center">
             <Link
               className={classes.cleanCart}
-              onClick={() => dispatch(handleShoppingCard(openShoppingCart))}
+              onClick={() => dispatch(handleCleanCart(productSelected))}
             >
-              <IconButton
-                className={classes.buttonClean}
-                onClick={() => dispatch(handleShoppingCard(openShoppingCart))}
-              >
+              <IconButton className={classes.buttonClean}>
                 <CloseIcon />
               </IconButton>
               <Typography>Limpar carrinho</Typography>
@@ -149,7 +165,8 @@ const ShoppingCartMobile = ({ openShoppingCart, dispatch }) => {
 };
 
 const mapStateToProps = state => ({
-  openShoppingCart: state.store.openShoppingCart
+  openShoppingCart: state.store.openShoppingCart,
+  productSelected: state.store.buyItem
 });
 
 export default connect(mapStateToProps)(ShoppingCartMobile);

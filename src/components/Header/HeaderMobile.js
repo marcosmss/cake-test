@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     height: 50
   },
   icon: {
-    fontSize: 30
+    fontSize: 25
   },
   paper: {
     width: "80%"
@@ -37,10 +37,23 @@ const useStyles = makeStyles({
   categories: {
     margin: 10,
     color: "#6b6b6b"
+  },
+  countCart: {
+    fontSize: 11,
+    background: "#ff0000",
+    borderRadius: "50%",
+    color: "#fff",
+    marginBottom: 10,
+    padding: "0px 4px"
   }
 });
 
-const HeaderMobile = ({ openMenuProfile, openShoppingCart, dispatch }) => {
+const HeaderMobile = ({
+  openMenuProfile,
+  openShoppingCart,
+  productSelected,
+  dispatch
+}) => {
   const classes = useStyles();
 
   const [state, setState] = React.useState({
@@ -128,6 +141,9 @@ const HeaderMobile = ({ openMenuProfile, openShoppingCart, dispatch }) => {
           aria-label="add to shopping cart"
         >
           <ShoppingCartOutlinedIcon className={classes.icon} />
+          <Grid className={classes.countCart}>
+            {productSelected && productSelected.length}
+          </Grid>
         </IconButton>
       </Grid>
       <MenuProfile />
@@ -138,7 +154,8 @@ const HeaderMobile = ({ openMenuProfile, openShoppingCart, dispatch }) => {
 
 const mapStateToProps = state => ({
   openMenuProfile: state.store.openMenuProfile,
-  openShoppingCart: state.store.openShoppingCart
+  openShoppingCart: state.store.openShoppingCart,
+  productSelected: state.store.buyItem
 });
 
 export default connect(mapStateToProps)(HeaderMobile);

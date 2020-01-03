@@ -29,17 +29,30 @@ const useStyles = makeStyles({
     display: "flex",
     color: "#6b6b6b",
     textDecoration: "none",
-    paddingRight: 60,
+    marginRight: 60,
     "&:hover": {
       textDecoration: "none"
     }
   },
   icon: {
     paddingRight: 6
+  },
+  countCart: {
+    fontSize: 12,
+    background: "#ff0000",
+    borderRadius: "50%",
+    color: "#fff",
+    marginBottom: 15,
+    padding: "0px 5px"
   }
 });
 
-const Header = ({ openMenuProfile, openShoppingCart, dispatch }) => {
+const Header = ({
+  openMenuProfile,
+  openShoppingCart,
+  productSelected,
+  dispatch
+}) => {
   const classes = useStyles();
 
   return (
@@ -71,6 +84,9 @@ const Header = ({ openMenuProfile, openShoppingCart, dispatch }) => {
             onClick={() => dispatch(handleShoppingCard(openShoppingCart))}
           >
             <ShoppingCartOutlinedIcon />
+            <Grid className={classes.countCart}>
+              {productSelected && productSelected.length}
+            </Grid>
           </IconButton>
 
           {openShoppingCart && <ShoppingCart />}
@@ -82,6 +98,7 @@ const Header = ({ openMenuProfile, openShoppingCart, dispatch }) => {
 
 const mapStateToProps = state => ({
   openMenuProfile: state.store.openMenuProfile,
-  openShoppingCart: state.store.openShoppingCart
+  openShoppingCart: state.store.openShoppingCart,
+  productSelected: state.store.buyItem
 });
 export default connect(mapStateToProps)(Header);

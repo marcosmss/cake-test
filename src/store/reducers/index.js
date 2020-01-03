@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 const initialState = {
   data: {},
   productDetail: {},
+  buyItem: [],
   openMenuProfile: false,
   openShoppingCart: false,
   status: false,
@@ -10,7 +11,6 @@ const initialState = {
 };
 
 function store(state = initialState, action) {
-  console.warn(state, "state sotre");
   switch (action.type) {
     case "FETCH_PRODUCTS_PENDING":
       return {
@@ -51,6 +51,19 @@ function store(state = initialState, action) {
         status: false,
         error: action.error
       };
+
+    case "HANDLE_BUY_ITEM_PRODUCTS":
+      return {
+        ...state,
+        buyItem: [...state.buyItem, action.buyItem]
+      };
+
+    case "HANDLE_CLEAN_CART": {
+      return {
+        ...state,
+        buyItem: []
+      };
+    }
 
     case "HANDLE_MENU_PROFILE":
       return { ...state, openMenuProfile: !state.openMenuProfile };

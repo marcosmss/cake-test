@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -7,12 +8,14 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 
+import { handleBuyItemProducts } from "../../store/actions";
+
 const useStyles = makeStyles(theme => ({
   root: {
     height: "100%"
   },
   highlight: {
-    height: 200,
+    height: 150,
     marginTop: 20,
     [theme.breakpoints.only("xs")]: {
       height: 100
@@ -26,11 +29,11 @@ const useStyles = makeStyles(theme => ({
   cardProduct: {
     height: 360,
     margin: "30px 0px",
-    boxShadow: "0px -1px 9px -4px rgba(0,0,0,0.75)",
-    cursor: "pointer"
+    border: "1px solid #eeeeee"
   },
   imgProducts: {
-    height: 250
+    height: 250,
+    cursor: "pointer"
   },
   imgProduct: {
     width: "100%",
@@ -75,13 +78,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ProductsItems = ({ products }) => {
+const ProductsItems = ({ products, dispatch }) => {
   const classes = useStyles();
-
   const [state, setState] = React.useState({ buy: false, value: null });
 
-  const teste = event => {
+  const showBuy = event => {
     setState({ buy: true, value: event.target && event.target.id });
+  };
+
+  const selectedBuy = event => {
+    const index = event.target && event.target.id;
+    const productSelected = products && products[index];
+
+    if (productSelected) {
+      return dispatch(
+        handleBuyItemProducts({ ...productSelected, quantity: 1 })
+      );
+    }
   };
 
   return (
@@ -101,7 +114,7 @@ const ProductsItems = ({ products }) => {
       <Grid item xs={10} container justify="space-between">
         {products &&
           products.length &&
-          products.map(item => (
+          products.map((item, index) => (
             <Grid
               item
               xs={12}
@@ -112,28 +125,27 @@ const ProductsItems = ({ products }) => {
               key={item.productId}
               className={[classes.cardProduct, classes.hoverExpand].join(" ")}
               id={item.productId}
-              onMouseEnter={event => teste(event)}
+              onMouseEnter={event => showBuy(event)}
               onMouseLeave={() => setState({ buy: false, value: null })}
-              onClick={() =>
-                (window.location.pathname = `/product/${item.productId}`)
-              }
             >
-              <Grid
-                item
-                xs={12}
-                container
-                justify="center"
-                alignItems="center"
-                className={classes.imgProducts}
-              >
-                <img
-                  id={item.productId}
-                  src={`${item.imageUrl}`}
-                  alt={item.productName}
-                  className={classes.imgProduct}
-                  onMouseEnter={event => teste(event)}
-                />
-              </Grid>
+              <Link to={`/product/${item.productId}`}>
+                <Grid
+                  item
+                  xs={12}
+                  container
+                  justify="center"
+                  alignItems="center"
+                  className={classes.imgProducts}
+                >
+                  <img
+                    id={item.productId}
+                    src={`${item.imageUrl}`}
+                    alt={item.productName}
+                    className={classes.imgProduct}
+                    onMouseEnter={event => showBuy(event)}
+                  />
+                </Grid>
+              </Link>
               <Grid item xs={10}>
                 <Grid
                   item
@@ -154,16 +166,18 @@ const ProductsItems = ({ products }) => {
                 </Grid>
 
                 {state.buy && state.value === item.productId && (
-                  <Grid item xs={12} container justify="center">
+                  <Grid item xs={12} id={index} container justify="center">
                     <Button
                       fullWidth
                       variant="contained"
                       className={classes.buttonBuy}
+                      id={index}
+                      onClick={event => selectedBuy(event)}
                     >
-                      <Typography className={classes.paddingRight}>
+                      <Typography id={index} className={classes.paddingRight}>
                         COMPRAR
                       </Typography>
-                      <ShoppingCartOutlinedIcon />
+                      <ShoppingCartOutlinedIcon id={index} />
                     </Button>
                   </Grid>
                 )}

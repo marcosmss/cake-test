@@ -19,7 +19,7 @@ const Product = ({ dispatch, isLoading, productDetail }) => {
       <Header />
       {isLoading && <LoadingProduct isLoading={isLoading} />}
       {!isLoading && productDetail.length && (
-        <ProductDetail productDetail={productDetail} />
+        <ProductDetail productDetail={productDetail} dispatch={dispatch} />
       )}
       <Footer />
     </React.Fragment>

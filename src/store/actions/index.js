@@ -28,7 +28,7 @@ export const fetchProductsSuccess = data => {
 export const fetchProductsError = error => {
   return {
     type: "FETCH_PRODUCTS_ERROR",
-    error: error
+    error
   };
 };
 
@@ -48,6 +48,20 @@ export const fetchDetailSuccess = productDetail => {
 export const fetchDetailError = error => {
   return {
     type: "FETCH_DETAIL_ERROR",
-    error: error
+    error
+  };
+};
+
+export const handleBuyItemProducts = buyItem => {
+  return {
+    type: "HANDLE_BUY_ITEM_PRODUCTS",
+    buyItem
+  };
+};
+
+export const handleCleanCart = productsSelects => {
+  return {
+    type: "HANDLE_CLEAN_CART",
+    productsSelects
   };
 };
