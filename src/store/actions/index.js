@@ -79,3 +79,11 @@ export const handleProductSold = productSold => {
     productSold
   };
 };
+
+export const handleQuantityProduct = (id, quantity) => {
+  return {
+    type: "HANDLE_QUANTITY_PRODUCT",
+    id,
+    quantity
+  };
+};

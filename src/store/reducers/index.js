@@ -83,6 +83,18 @@ function store(state = initialState, action) {
       };
     }
 
+    case "HANDLE_QUANTITY_PRODUCT": {
+      return {
+        ...state,
+        buyItem: state.buyItem.map(product => {
+          if (product.productId === action.id) {
+            return { ...product, quantity: action.quantity };
+          }
+          return product;
+        })
+      };
+    }
+
     case "HANDLE_MENU_PROFILE":
       return { ...state, openMenuProfile: !state.openMenuProfile };
 

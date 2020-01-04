@@ -10,7 +10,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
 
-import { removeProductCart } from "../../store/actions";
+import { removeProductCart, handleQuantityProduct } from "../../store/actions";
 
 const useStyles = makeStyles({
   imageProduct: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     letterSpacing: 1
   },
   countCart: {
-    width: 80,
+    width: 70,
     height: 36,
     marginRight: 10,
     color: "#ef7560",
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     fontSize: 15
   },
   priceProduct: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: "bold",
     color: "#4c4a49",
     marginRight: 18
@@ -72,7 +72,16 @@ const ProductCart = ({ productSelected, dispatch }) => {
             className={classes.countCart}
           >
             <RemoveOutlinedIcon
-              //   onClick={() => setCount(count > 1 ? count - 1 : 1)}
+              onClick={() =>
+                dispatch(
+                  handleQuantityProduct(
+                    productSelected.productId,
+                    productSelected.quantity > 1
+                      ? productSelected.quantity - 1
+                      : 1
+                  )
+                )
+              }
               fontSize="small"
               style={{ cursor: "pointer" }}
             />
@@ -80,7 +89,14 @@ const ProductCart = ({ productSelected, dispatch }) => {
               {productSelected.quantity}
             </Typography>
             <AddOutlinedIcon
-              //   onClick={() => setCount(count + 1)}
+              onClick={() =>
+                dispatch(
+                  handleQuantityProduct(
+                    productSelected.productId,
+                    productSelected.quantity + 1
+                  )
+                )
+              }
               fontSize="small"
               style={{ cursor: "pointer" }}
             />

@@ -6,6 +6,8 @@ import Input from "@material-ui/core/Input";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { postUser } from "../../api";
+
 const useStyles = makeStyles(theme => ({
   root: {
     height: 180,
@@ -73,6 +75,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Footer = () => {
+  const [state, setState] = React.useState({
+    name: "",
+    email: "",
+    notice: "123456",
+    phone: "123456"
+  });
   const classes = useStyles();
 
   return (
@@ -130,16 +138,26 @@ const Footer = () => {
           >
             <form>
               <Input
+                onChange={event =>
+                  setState({ ...state, name: event.target.value })
+                }
                 className={classes.inputField}
                 color="secondary"
                 placeholder="Seu nome"
               />
               <Input
+                onChange={event =>
+                  setState({ ...state, email: event.target.value })
+                }
                 className={classes.inputField}
                 color="secondary"
                 placeholder="Seu email"
               />
-              <Button variant="contained" className={classes.buttonField}>
+              <Button
+                onClick={() => postUser(state)}
+                variant="contained"
+                className={classes.buttonField}
+              >
                 <Typography variant="body2">Enviar</Typography>
               </Button>
             </form>

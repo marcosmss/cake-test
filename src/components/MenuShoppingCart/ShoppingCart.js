@@ -89,22 +89,21 @@ const ShoppingCartMobile = ({
 }) => {
   const classes = useStyles();
 
-  // const arrayValue =
-  //   productSelected &&
-  //   productSelected.length &&
-  //   productSelected.map(item => item.price);
-
-  // const totalValue = arrayValue
-  //   ? arrayValue.reduce((acc, cur) => acc + cur)
-  //   : 0.0;
-
-  console.warn(productSold, "productSold");
-
   const valuePrice = productSelected && productSelected.map(item => item.price);
   const valueQuantity =
     productSelected && productSelected.map(item => item.quantity);
+  const arrayValue = [];
 
-  const totalValue = valuePrice * valueQuantity;
+  for (let i = 0; i < valuePrice.length; i++) {
+    let totalValue = 0.0;
+    totalValue = valuePrice[i] * valueQuantity[i];
+    arrayValue.push(totalValue);
+  }
+
+  const totalValue =
+    arrayValue && arrayValue.length
+      ? arrayValue.reduce((acc, cur) => acc + cur)
+      : 0.0;
 
   return (
     <Grid className={classes.root}>
@@ -165,7 +164,7 @@ const ShoppingCartMobile = ({
               onClick={() => {
                 dispatch(handleProductSold(productSelected));
                 setTimeout(() => {
-                  alert('Produto(s) Comprado, confira a aba "Minha conta"');
+                  alert('Produto(s) comprado, confira a aba "Minha conta"');
                 }, 250);
               }}
               variant="contained"

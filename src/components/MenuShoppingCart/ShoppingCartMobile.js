@@ -11,7 +11,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import ProductCart from "./ProductCart";
-import { handleShoppingCard, handleCleanCart } from "../../store/actions";
+import {
+  handleShoppingCard,
+  handleCleanCart,
+  handleProductSold
+} from "../../store/actions";
 
 const useStyles = makeStyles({
   root: {
@@ -81,8 +85,18 @@ const ShoppingCartMobile = ({
   const valuePrice = productSelected && productSelected.map(item => item.price);
   const valueQuantity =
     productSelected && productSelected.map(item => item.quantity);
+  const arrayValue = [];
 
-  const totalValue = valuePrice * valueQuantity;
+  for (let i = 0; i < valuePrice.length; i++) {
+    let totalValue = 0.0;
+    totalValue = valuePrice[i] * valueQuantity[i];
+    arrayValue.push(totalValue);
+  }
+
+  const totalValue =
+    arrayValue && arrayValue.length
+      ? arrayValue.reduce((acc, cur) => acc + cur)
+      : 0.0;
 
   return (
     <Drawer
@@ -143,7 +157,16 @@ const ShoppingCartMobile = ({
             </Typography>
           </Grid>
           <Grid item xs={12} container justify="center">
-            <Button variant="contained" className={classes.buttonBuy}>
+            <Button
+              onClick={() => {
+                dispatch(handleProductSold(productSelected));
+                setTimeout(() => {
+                  alert('Produto(s) comprado, confira a aba "Minha conta"');
+                }, 250);
+              }}
+              variant="contained"
+              className={classes.buttonBuy}
+            >
               <Typography className={classes.buyTitle}>Comprar</Typography>
             </Button>
           </Grid>

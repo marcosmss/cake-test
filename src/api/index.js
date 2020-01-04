@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   fetchProductsPending,
   fetchProductsSuccess,
@@ -42,5 +43,16 @@ export const fetchProductDetail = (dispatch, pathName) => {
     })
     .catch(error => {
       dispatch(fetchDetailError(error));
+    });
+};
+
+export const postUser = data => {
+  axios
+    .post("https://api.vtexcrm.com.br/corebiz/dataentities/TE/documents", data)
+    .then(response => {
+      console.warn(response);
+    })
+    .catch(error => {
+      console.warn(error);
     });
 };
