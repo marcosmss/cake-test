@@ -2,6 +2,10 @@
   "name": "testcorebiz",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "12.13.1",
+    "npm": "6.12.1"
+  },
   "dependencies": {
     "@material-ui/core": "^4.8.2",
     "@material-ui/icons": "^4.5.1",
