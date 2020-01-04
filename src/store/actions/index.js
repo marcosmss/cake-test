@@ -65,3 +65,17 @@ export const handleCleanCart = productsSelects => {
     productsSelects
   };
 };
+
+export const removeProductCart = id => {
+  return {
+    type: "REMOVE_PRODUCT_CART",
+    id
+  };
+};
+
+export const handleProductSold = productSold => {
+  return {
+    type: "HANDLE_PRODUCT_SOLD",
+    productSold
+  };
+};

@@ -4,6 +4,7 @@ const initialState = {
   data: {},
   productDetail: {},
   buyItem: [],
+  productSold: [],
   openMenuProfile: false,
   openShoppingCart: false,
   status: false,
@@ -61,6 +62,23 @@ function store(state = initialState, action) {
     case "HANDLE_CLEAN_CART": {
       return {
         ...state,
+        buyItem: []
+      };
+    }
+
+    case "REMOVE_PRODUCT_CART": {
+      return {
+        ...state,
+        buyItem: state.buyItem.filter(
+          buyItem => buyItem.productId !== action.id
+        )
+      };
+    }
+
+    case "HANDLE_PRODUCT_SOLD": {
+      return {
+        ...state,
+        productSold: action.productSold,
         buyItem: []
       };
     }

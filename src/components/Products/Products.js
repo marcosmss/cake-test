@@ -98,7 +98,7 @@ const ProductsItems = ({ products, dispatch }) => {
   };
 
   return (
-    <Grid item xs={12} container justify="center">
+    <Grid item xs={12} container justify="center" style={{ height: "100vh" }}>
       <Grid
         item
         xs={12}

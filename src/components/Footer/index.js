@@ -10,22 +10,18 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: 180,
     bottom: 0,
+    marginTop: 100,
     position: "relative",
     backgroundColor: "#ef7560",
     [theme.breakpoints.up("md")]: {
-      height: 100,
-      bottom: 20,
-      position: "absolute"
+      height: 100
     }
   },
   footerDeveloped: {
     height: 20,
     bottom: 0,
     position: "relative",
-    backgroundColor: "#eeeeee",
-    [theme.breakpoints.up("md")]: {
-      position: "absolute"
-    }
+    backgroundColor: "#eeeeee"
   },
   titleDeveloped: {
     fontSize: 14,
