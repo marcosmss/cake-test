@@ -1,21 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicação ReactJS desenvolvida a partir de um layout XD/PNG que consiste em uma Home de produtos e Detalhe do produto.
 
-## Available Scripts
+Para executar a aplicação você deverá primeiro da um `git clone https://github.com/mmss1304/cake-test.git`, feito isso incluirá as devidas dependências do projeto com o comando `npm install` || `yarn install`.
 
-In the project directory, you can run:
+Para rodar o projeto basta executar o comando `yarn start`.
 
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-# cake-test
-
+Aplicação hospedada no Heroku: http://thawing-castle-81357.herokuapp.com/.
