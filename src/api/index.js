@@ -48,7 +48,7 @@ export const fetchProductDetail = (dispatch, pathName) => {
 
 export const postUser = data => {
   axios
-    .post("https://api.vtexcrm.com.br/corebiz/dataentities/TE/documents", data)
+    .post("http://api-corebiz.herokuapp.com/post", data)
     .then(response => {
       console.warn(response);
     })
